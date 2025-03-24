@@ -9,59 +9,75 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #0097b2;
             color: white;
             text-align: center;
-            margin: 0;
-            padding: 0;
+            height: 100vh; /* جعل الصفحة تمتد على كامل ارتفاع الهاتف */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
         .container {
-            margin: 5% auto;
-            padding: 20px;
             width: 90%;
-            max-width: 380px;
+            max-width: 360px; /* جعل العرض مناسباً للهواتف */
             background: white;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
             color: black;
+            padding: 20px;
         }
+
         h2 {
             font-weight: 600;
-            font-size: 22px;
+            font-size: 20px;
             margin-bottom: 15px;
         }
+
         input, button {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             margin: 8px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
         }
+
         button {
             background: #0097b2;
             color: white;
             cursor: pointer;
             font-weight: 600;
+            border: none;
         }
+
         button:hover {
             background: #007a8f;
         }
+
         .whatsapp {
-            margin-top: 15px;
+            margin-top: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
+
         .whatsapp img {
-            width: 35px;
+            width: 30px;
             margin-left: 8px;
         }
+
         .whatsapp a {
             text-decoration: none;
-            font-size: 16px;
+            font-size: 14px;
             color: white;
             background: #25D366;
             padding: 8px 15px;
@@ -70,6 +86,7 @@
             align-items: center;
             transition: 0.3s;
         }
+
         .whatsapp a:hover {
             background: #1da851;
         }
@@ -83,7 +100,6 @@
         <input type="text" id="address" placeholder="أدخل عنوانك" required>
         <button onclick="sendToTelegram()">إرسال</button>
 
-        <!-- زر واتساب مع اللوجو -->
         <div class="whatsapp">
             <a id="whatsappLink" target="_blank">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
