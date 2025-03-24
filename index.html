@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>استمارة الطلب</title>
 
     <!-- إضافة خط Poppins من Google Fonts -->
@@ -9,7 +10,7 @@
 
     <style>
         body {
-            font-family: 'Poppins', sans-serif; /* تطبيق الخط الجديد */
+            font-family: 'Poppins', sans-serif;
             background-color: #0097b2;
             color: white;
             text-align: center;
@@ -17,9 +18,10 @@
             padding: 0;
         }
         .container {
-            margin: 50px auto;
+            margin: 5% auto;
             padding: 20px;
-            max-width: 400px;
+            width: 90%;
+            max-width: 380px;
             background: white;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -27,16 +29,16 @@
         }
         h2 {
             font-weight: 600;
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 22px;
+            margin-bottom: 15px;
         }
         input, button {
-            width: 90%;
-            padding: 12px;  /* زيادة الحجم قليلاً لتكون الأزرار أكبر */
-            margin: 10px 0;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 16px; /* زيادة حجم الخط داخل الحقول */
+            font-size: 14px;
         }
         button {
             background: #0097b2;
@@ -48,21 +50,21 @@
             background: #007a8f;
         }
         .whatsapp {
-            margin-top: 20px;
+            margin-top: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .whatsapp img {
-            width: 40px;
-            margin-left: 10px;
+            width: 35px;
+            margin-left: 8px;
         }
         .whatsapp a {
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px;
             color: white;
             background: #25D366;
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 50px;
             display: flex;
             align-items: center;
@@ -95,7 +97,6 @@
             var phone = document.getElementById("phone").value.trim();
             var address = document.getElementById("address").value.trim();
 
-            // تحقق مما إذا كان المستخدم قد أرسل بالفعل خلال آخر 24 ساعة
             var lastSubmissionTime = localStorage.getItem("lastSubmissionTime");
             if (lastSubmissionTime) {
                 var currentTime = new Date().getTime();
@@ -108,30 +109,26 @@
                 }
             }
 
-            // تحقق من إدخال جميع الحقول
             if (phone === "" || address === "") {
                 alert("يرجى ملء جميع الحقول");
                 return;
             }
 
-            // تحقق من صحة الرقم (يجب أن يكون 10 أو 11 رقمًا)
             var phonePattern = /^[0-9]{10,11}$/;
             if (!phonePattern.test(phone)) {
                 alert("الرجاء إدخال رقم هاتف صحيح مكون من 10 أو 11 رقمًا فقط");
                 return;
             }
 
-            var botToken = "7602821198:AAHHrMz_Ny9BtNf2TLqHTJHZxD_UbUiMsME"; // توكن البوت
-            var chatId = "7027361900"; // معرف تيليجرام الخاص بك
+            var botToken = "7602821198:AAHHrMz_Ny9BtNf2TLqHTJHZxD_UbUiMsME";
+            var chatId = "7027361900";
 
-            // إضافة نوع المنتج في الرسالة فقط في تيليجرام
-            var productType = "طلبات المقوي 🟢";  // يمكنك تعديل هذا النص لاحقًا حسب حاجتك
+            var productType = "طلبات المقوي 🟢";
 
-            // جعل الرقم قابلًا للنسخ في تيليجرام مع مسافة أكبر
             var message = `🟢 *اشعار السعادة طلب جديد* 🟢\n\n`
                         + ` *الرقم - * \`${phone}\`\n\n`
                         + ` *العنوان - * ${address}\n\n`
-                        + ` * 🟢* ${productType}`;  // إضافة نوع المنتج في الرسالة
+                        + ` * 🟢* ${productType}`;
 
             var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
 
@@ -140,7 +137,7 @@
                 .then(data => {
                     if (data.ok) {
                         alert("تم الإرسال بنجاح!");
-                        localStorage.setItem("lastSubmissionTime", new Date().getTime()); // حفظ الوقت الحالي
+                        localStorage.setItem("lastSubmissionTime", new Date().getTime());
                         updateWhatsAppLink(phone, address);
                     } else {
                         alert("حدث خطأ أثناء الإرسال!");
@@ -150,7 +147,7 @@
         }
 
         function updateWhatsAppLink(phone, address) {
-            var whatsappNumber = "9647817358484"; // ضع رقم واتساب الخاص بك بدون +
+            var whatsappNumber = "9647817358484";
             var whatsappMessage = `مرحبا،: ${phone}، العنوان: ${address}`;
             var whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             document.getElementById("whatsappLink").href = whatsappLink;
