@@ -127,8 +127,8 @@
 
             // جعل الرقم قابلًا للنسخ في تيليجرام مع مسافة أكبر
             var message = `🟢 *اشعار السعادة - طلب جديد* 🟢\n\n`
-                        + `📞 *الرقم:* \`${phone}\`\n\n`
-                        + `📍 *العنوان:* ${address}`;
+                        + ` *الرقم:* \`${phone}\`\n\n`
+                        + ` *العنوان:* ${address}`;
 
             var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
 
@@ -148,7 +148,7 @@
 
         function updateWhatsAppLink(phone, address) {
             var whatsappNumber = "9647817358484"; // ضع رقم واتساب الخاص بك بدون +
-            var whatsappMessage = `مرحبا، رقم الهاتف: ${phone}، العنوان: ${address}`;
+            var whatsappMessage = `مرحبا،: ${phone}، العنوان: ${address}`;
             var whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             document.getElementById("whatsappLink").href = whatsappLink;
         }
