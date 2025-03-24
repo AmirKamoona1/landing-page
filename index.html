@@ -79,7 +79,6 @@
         <h2>املأ بياناتك</h2>
         <input type="text" id="phone" placeholder="أدخل رقم هاتفك" required>
         <input type="text" id="address" placeholder="أدخل عنوانك" required>
-        <input type="text" id="boosterRequest" placeholder="أدخل طلبات المقوي" required> <!-- حقل جديد -->
         <button onclick="sendToTelegram()">إرسال</button>
 
         <!-- زر واتساب مع اللوجو -->
@@ -95,7 +94,6 @@
         function sendToTelegram() {
             var phone = document.getElementById("phone").value.trim();
             var address = document.getElementById("address").value.trim();
-            var boosterRequest = document.getElementById("boosterRequest").value.trim(); // الحصول على طلب المقوي
 
             // تحقق مما إذا كان المستخدم قد أرسل بالفعل خلال آخر 24 ساعة
             var lastSubmissionTime = localStorage.getItem("lastSubmissionTime");
@@ -111,7 +109,7 @@
             }
 
             // تحقق من إدخال جميع الحقول
-            if (phone === "" || address === "" || boosterRequest === "") {
+            if (phone === "" || address === "") {
                 alert("يرجى ملء جميع الحقول");
                 return;
             }
@@ -126,11 +124,14 @@
             var botToken = "7602821198:AAHHrMz_Ny9BtNf2TLqHTJHZxD_UbUiMsME"; // توكن البوت
             var chatId = "7027361900"; // معرف تيليجرام الخاص بك
 
-            // إضافة طلبات المقوي إلى الرسالة
+            // إضافة نوع المنتج في الرسالة فقط في تيليجرام
+            var productType = "نوع المنتج الذي تم ترويجه";  // يمكنك تعديل هذا النص لاحقًا حسب حاجتك
+
+            // جعل الرقم قابلًا للنسخ في تيليجرام مع مسافة أكبر
             var message = `🟢 *اشعار السعادة - طلب جديد* 🟢\n\n`
                         + ` *الرقم - * \`${phone}\`\n\n`
                         + ` *العنوان - * ${address}\n\n`
-                        + ` *🟢 طلبات المقوي 🟢* ${boosterRequest}`; // إضافة الحقل الجديد
+                        + ` *🟢 نوع المنتج 🟢* ${productType}`;  // إضافة نوع المنتج في الرسالة
 
             var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
 
@@ -140,7 +141,7 @@
                     if (data.ok) {
                         alert("تم الإرسال بنجاح!");
                         localStorage.setItem("lastSubmissionTime", new Date().getTime()); // حفظ الوقت الحالي
-                        updateWhatsAppLink(phone, address, boosterRequest); // تمرير طلبات المقوي إلى واتساب
+                        updateWhatsAppLink(phone, address);
                     } else {
                         alert("حدث خطأ أثناء الإرسال!");
                     }
@@ -148,9 +149,9 @@
                 .catch(error => alert("فشل الاتصال بتيليجرام!"));
         }
 
-        function updateWhatsAppLink(phone, address, boosterRequest) {
+        function updateWhatsAppLink(phone, address) {
             var whatsappNumber = "9647817358484"; // ضع رقم واتساب الخاص بك بدون +
-            var whatsappMessage = `مرحبا،: ${phone}، العنوان: ${address}، طلبات المقوي: ${boosterRequest}`;
+            var whatsappMessage = `مرحبا،: ${phone}، العنوان: ${address}`;
             var whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             document.getElementById("whatsappLink").href = whatsappLink;
         }
