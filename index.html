@@ -31,7 +31,7 @@
             width: 100%;
             max-width: 380px;
             background: white;
-            border-radius: 20px; /* جعل الحواف دائرية */
+            border-radius: 20px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
             color: black;
             padding: 25px;
@@ -108,8 +108,8 @@
 
     <div class="container">
         <h2>للطلب اكتب رقمك و عنوانك</h2>
-        <input type="text" id="phone" placeholder="أدخل رقم هاتفك" required>
-        <input type="text" id="address" placeholder="أدخل عنوانك" required>
+        <input type="text" id="phone" placeholder="أدخل رقم هاتفك" required oninput="updateWhatsAppLink()">
+        <input type="text" id="address" placeholder="أدخل عنوانك" required oninput="updateWhatsAppLink()">
         <button onclick="sendToTelegram()">إرسال</button>
 
         <div class="whatsapp">
@@ -166,7 +166,7 @@
                     if (data.ok) {
                         alert("تم الإرسال بنجاح!");
                         localStorage.setItem("lastSubmissionTime", new Date().getTime());
-                        updateWhatsAppLink(phone, address);
+                        updateWhatsAppLink();
                     } else {
                         alert("حدث خطأ أثناء الإرسال!");
                     }
@@ -174,12 +174,21 @@
                 .catch(error => alert("فشل الاتصال بتيليجرام!"));
         }
 
-        function updateWhatsAppLink(phone, address) {
+        function updateWhatsAppLink() {
+            var phone = document.getElementById("phone").value.trim();
+            var address = document.getElementById("address").value.trim();
             var whatsappNumber = "9647775037750";
-            var whatsappMessage = `مرحبا،: ${phone}، العنوان: ${address}`;
+
+            var whatsappMessage = phone && address 
+                ? `مرحبا، رقم الهاتف: ${phone}، العنوان: ${address}`
+                : "مرحبا، أرغب في الاستفسار عن الطلبات";
+
             var whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             document.getElementById("whatsappLink").href = whatsappLink;
         }
+
+        // ضبط رابط واتساب بشكل افتراضي عند تحميل الصفحة
+        updateWhatsAppLink();
     </script>
 
 </body>
