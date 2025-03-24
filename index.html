@@ -128,9 +128,9 @@
 
             // إضافة طلبات المقوي إلى الرسالة
             var message = `🟢 *اشعار السعادة - طلب جديد* 🟢\n\n`
-                        + ` *الرقم:* \`${phone}\`\n\n`
-                        + ` *العنوان:* ${address}\n\n`
-                        + ` *طلبات المقوي:* ${boosterRequest}`; // إضافة الحقل الجديد
+                        + ` *الرقم - * \`${phone}\`\n\n`
+                        + ` *العنوان - * ${address}\n\n`
+                        + ` *🟢 طلبات المقوي 🟢* ${boosterRequest}`; // إضافة الحقل الجديد
 
             var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
 
