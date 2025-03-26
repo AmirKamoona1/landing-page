@@ -2,170 +2,48 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>استمارة الطلب</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقعي</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
-
         body {
+            font-family: 'Bunya', sans-serif;
             background-color: #0097b2;
             color: white;
             text-align: center;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
         }
-
-        .container {
-            width: 100%;
-            max-width: 380px;
+        .form-container {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
             color: black;
-            padding: 25px;
-            text-align: center;
-            position: relative;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: auto;
         }
-
-        h2 {
-            font-weight: 600;
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        input, button {
+        .whatsapp-button {
+            display: block;
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: #0097b2;
-            outline: none;
-        }
-
-        button {
-            background: #0097b2;
+            background-color: #25D366;
             color: white;
-            cursor: pointer;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #007a8f;
-        }
-
-        .whatsapp {
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .whatsapp img {
-            width: 30px;
-            margin-left: 8px;
-        }
-
-        .whatsapp a {
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
             text-decoration: none;
-            font-size: 14px;
-            color: white;
-            background: #25D366;
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            transition: 0.3s;
-        }
-
-        .whatsapp a:hover {
-            background: #1da851;
+            font-size: 18px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <h2>للطلب اكتب رقمك و عنوانك</h2>
-        <input type="text" id="phone" placeholder="أدخل رقم هاتفك" required>
-        <input type="text" id="address" placeholder="أدخل عنوانك" required>
-        <button onclick="sendToTelegram()">إرسال</button>
-
-        <div class="whatsapp">
-            <a id="whatsappLink" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
-                اضغط هنا للتواصل عبر واتساب
-            </a>
-        </div>
+    <div class="form-container">
+        <h2>املأ النموذج للمتابعة</h2>
+        <form>
+            <label for="phone">رقم الهاتف:</label>
+            <input type="text" id="phone" name="phone" required><br><br>
+            <label for="message">رسالتك:</label>
+            <textarea id="message" name="message" required></textarea><br><br>
+            <a class="whatsapp-button" href="https://wa.link/bn0iqh" target="_blank">تواصل عبر واتساب</a>
+        </form>
     </div>
-
-    <script>
-        function sendToTelegram() {
-            var phone = document.getElementById("phone").value.trim();
-            var address = document.getElementById("address").value.trim();
-
-            if (phone === "" || address === "") {
-                alert("يرجى ملء جميع الحقول");
-                return;
-            }
-
-            var phonePattern = /^[0-9]{10,11}$/;
-            if (!phonePattern.test(phone)) {
-                alert("الرجاء إدخال رقم هاتف صحيح مكون من 10 أو 11 رقمًا فقط");
-                return;
-            }
-
-            var botToken = "7602821198:AAHHrMz_Ny9BtNf2TLqHTJHZxD_UbUiMsME";
-            var chatId = "7027361900";
-            var productType = "طلبات المقوي 🟢";
-
-            var message = `🟢 *طلب جديد* 🟢\n\n`
-                        + ` *الرقم - * \`${phone}\`\n\n`
-                        + ` *العنوان - * ${address}\n\n`
-                        + ` * 🟢* ${productType}`;
-
-            var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.ok) {
-                        alert("تم الإرسال بنجاح!");
-                        updateWhatsAppLink(phone, address);
-                    } else {
-                        alert("حدث خطأ أثناء الإرسال!");
-                    }
-                })
-                .catch(error => alert("فشل الاتصال بتيليجرام!"));
-        }
-
-        function updateWhatsAppLink(phone, address) {
-            var whatsappNumber = "9647775037750";
-            var whatsappMessage = `مرحبا،: ${phone}، العنوان: ${address}`;
-            var whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-            document.getElementById("whatsappLink").href = whatsappLink;
-        }
-    </script>
-
 </body>
 </html>
