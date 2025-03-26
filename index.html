@@ -181,7 +181,7 @@
 
             var whatsappMessage = phone && address 
                 ? `مرحبا، رقم الهاتف: ${phone}، العنوان: ${address}`
-                : "مرحبا، أرغب في الاستفسار عن الطلبات";
+                : "مرحبا،";
 
             var whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             document.getElementById("whatsappLink").href = whatsappLink;
